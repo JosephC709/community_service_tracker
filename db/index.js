@@ -10,7 +10,7 @@
 //
 // ============================================================
 
-// SECTION 1 — add your comment here:
+// SECTION 1 — add your comment here: s
 const { Pool } = require("pg");
 const fs = require("fs");
 const path = require("path");
