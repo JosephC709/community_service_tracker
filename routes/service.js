@@ -34,12 +34,12 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     // FIX BUG 1: Field names were incorrect (form sends camelCase values)
-    const { studentName, studentId, activityDate, hours, recipient } = req.body;
+    const { student_name, student_id, activity_date, hours, recipient } = req.body;
 
     const record = await serviceModel.addRecord(
-      studentName,
-      studentId,
-      activityDate,
+      student_name,
+      student_id,
+      activity_date,
       hours,
       recipient
     );
