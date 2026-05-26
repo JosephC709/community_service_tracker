@@ -33,18 +33,24 @@ router.get('/', async (req, res) => {
 // POST /api/service — add a new record
 router.post('/', async (req, res) => {
   try {
-    // BUG 1 is somewhere in the four lines below ↓
-    const { student_name, student_id, activity_date, hours, recipient } = req.body;
+    // FIX BUG 1: Field names were incorrect (form sends camelCase values)
+    const { studentName, studentId, activityDate, hours, recipient } = req.body;
+
     const record = await serviceModel.addRecord(
-      student_name, student_id, activity_date, hours, recipient
+      studentName,
+      studentId,
+      activityDate,
+      hours,
+      recipient
     );
+
     res.status(201).json(record);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// BUG 2 is on the line directly below ↓
+// FIX BUG 2: This route should be GET because it only reads data (not POST)
 router.get('/report', async (req, res) => {
   try {
     const report = await serviceModel.getHoursByStudent();
