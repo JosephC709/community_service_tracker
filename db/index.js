@@ -10,23 +10,27 @@
 //
 // ============================================================
 
-// SECTION 1 — add your comment here: s
+// SECTION 1 — Imports the packages needed for the database connection,
+// reading files, working with file paths, and using environment variables.
 const { Pool } = require("pg");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
 
-// SECTION 2 — add your comment here:
+// SECTION 2 — Creates a connection pool to the PostgreSQL database
+// using the database URL stored in the environment variables.
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
 });
 
-// SECTION 3 — add your comment here:
+// SECTION 3 — Finds the schema.sql file path and reads its contents
+// so the database tables can be created automatically.
 const schemaPath = path.join(__dirname, "schema.sql");
 const schema = fs.readFileSync(schemaPath, "utf8");
 
-// SECTION 4 — add your comment here:
+// SECTION 4 — Runs the SQL schema file and checks if the tables
+// were created successfully or if an error happened.
 (async () => {
   try {
     await pool.query(schema);
@@ -36,5 +40,6 @@ const schema = fs.readFileSync(schemaPath, "utf8");
   }
 })();
 
-// SECTION 5 — add your comment here:
+// SECTION 5 — Exports the database pool so other files in the project
+// can use the database connection.
 module.exports = pool;
